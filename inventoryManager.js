@@ -10,7 +10,7 @@ class Item {
 }
 
 class Discripton {
-    constructor(qty){
+    constructor(){
         this.qty = qty;
         this.price = price;
         this.amountSold = amountSold;
@@ -18,7 +18,7 @@ class Discripton {
 }
 
 class ItemService {
-    static url = "http://crudcrud.com/apid4cd6184ffd74f848e28ac8657748f1b";
+    static url = "http://crudcrud.com/api/d4cd6184ffd74f848e28ac8657748f1b/unicorns";
 
     static getAllItems() {
         return $.get(this.url);
@@ -44,7 +44,7 @@ class ItemService {
 
     static deleteItem(id) {
         return $.ajax({
-            url: thislurl + `/${id}`,
+            url: this.url + `/${id}`,
             type: "DELETE"
         })
     }
@@ -62,11 +62,10 @@ class DOMManager {
       $(`#app`).empty();
       for (let item of items) {
           $(`app`).prepend(
-              `<div id="${item._id}" class="card>
+              `<div id="${item._id}" class="card">
                 <div class ="card-header">
                 <h2>${item.name}</h2>
                 </div>
-                
                 `
           );
       }  
