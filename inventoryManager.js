@@ -71,13 +71,13 @@ class DOMManager {
                 <div class="card">
                 <div class="row">
                     <div class="col-sm">
-                    <input type="text" id="${item._id}-discriptions-qty" class="form-control" placeholder="Price">
+                    <input type="number" id="${item._id}-discription-qty" class="form-control" placeholder="Price">
                     </div>
                     <div class="col-sm">
-                    <input type="text" id="${item._id}-discriptions-price" class="form-control" placeholder="Quantity">
+                    <input type="currency" id="${item._id}-discription-price" class="form-control" placeholder="Quantity">
                     </div>
                     <div class="col-sm">
-                    <input type="text" id="${item._id}-discriptions-amountSold" class="form-control" placeholder="Amount Sold">
+                    <input type="number" id="${item._id}-discription-amountSold" class="form-control" placeholder="Amount Sold">
                     </div>
                   </div>
                 </div>
@@ -85,8 +85,22 @@ class DOMManager {
             </div>
                 `
           );
-      }  
+          for (let discription of item.discriptions) {
+            $(`#${item._id}`).find('.card-body').append(
+                `<p>
+                <span id="amountof-${item._id}"><strong>Quantity: </strong> ${discription.qty}</span>
+                
+                <span id="amountof-${item._id}"><strong>Price: </strong> ${discription.price}</span>
+
+                <span id="amountof-${item._id}"><strong>Amount sold: </strong> ${discription.amountSold}</span>
+
+                <button class="btn btn-danger" onclick="DOMManager.deleteQuantity('${item._id}", "${discription._id}")">deleteQuantity</button>
+                `
+                )
+        }
     }
+      }  
 }
+
 
 DOMManager.getAllItems()
