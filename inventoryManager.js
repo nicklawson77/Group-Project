@@ -1,7 +1,9 @@
 class Item {
-    constructor(name) {
+    constructor(name, qty, price, amountSold) {
         this.name = name;
-        this.discriptions = [];
+        this.qty = qty;
+        this.price = price;
+        this.amountSold = amountSold;
     }
     
     addItem(price, qty, amountSold) {
@@ -10,7 +12,7 @@ class Item {
 }
 
 class Discripton {
-    constructor(){
+    constructor(qty, price, amountSold){
         this.qty = qty;
         this.price = price;
         this.amountSold = amountSold;
@@ -18,7 +20,7 @@ class Discripton {
 }
 
 class ItemService {
-    static url = "https://crudcrud.com/api/3c64c8349011494d883325f67a2c0310";
+    static url = "https://crudcrud.com/api/7b9079c3c2324ae797f0d6d80264c8cc/unicorns";
 
     static getAllItems() {
         return $.get(this.url);
@@ -29,8 +31,13 @@ class ItemService {
     }
 
     static createItem(item) {
-        return $.post(this.url, item);
-    }
+        return $.ajax({
+        url: this.url,
+        dataType: 'json',
+        data: JSON.stringify(item),
+        contentType: `application/json`,
+        type: 'POST'
+    })}
 
     static updateItem(item) {
         return $.ajax({
@@ -59,7 +66,7 @@ class DOMManager {
 
     static createItem(name) {
        ItemService.createItem(new Item(name))
-       .then(() =>{
+       .then(() => {
            return ItemService.getAllItems();
        })
        .then((items) => this.render(items));
@@ -70,12 +77,14 @@ class DOMManager {
         .then(() => {
             return ItemService.getAllItems();
         })
-        .then((houses) => this.render(this.items))
+        .then((items) => this.render(items));
     }
+    
 
 
     static render(items) {
       this.items = items;
+      console.log(typeof(items),items)
       $(`#app`).empty();
       for (let item of items) {
           $(`app`).prepend(
@@ -102,7 +111,8 @@ class DOMManager {
             </div>
                 `
           );
-          for (let discription of item.discriptions) {
+          if (item.discription && item.discription.length >= 0)
+          {for (let discription of item.discriptions) {
             $(`#${item._id}`).find('.card-body').append(
                 `<p>
                 <span id="amountof-${item._id}"><strong>Quantity: </strong> ${discription.qty}</span>
@@ -111,13 +121,20 @@ class DOMManager {
 
                 <span id="amountof-${item._id}"><strong>Amount sold: </strong> ${discription.amountSold}</span>
 
-                <button class="btn btn-danger" onclick="DOMManager.deleteQuantity('${item._id}", "${discription._id}")">deleteQuantity</button>
+                <button class="btn btn-danger" onclick="DOMManager.deleteQuantity('${item._id}", "${discription._id}')">deleteQuantity</button>
                 `
-                )
+                );}
         }
     }
       }  
 }
 
+$("#create-new-item").on("click",() => {
+    DOMManager.createItem($('#new-item-name').val());
+    $('#new-item-name').val('');
+});
 
-DOMManager.getAllItems()
+DOMManager.getAllItems();
+
+
+/// fix render items
