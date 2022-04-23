@@ -57,6 +57,13 @@ class DOMManager {
         ItemService.getAllItems().then(items => this.render(items));
     }
 
+    static createItem(name) {
+       ItemService.createItem(new Item(name))
+       .then(() =>{
+           return ItemService.getAllItems();
+       })
+       .then((items) => this.render(items));
+    }
 
     static deleteItem(id) {
         ItemService.deleteItem(id)
