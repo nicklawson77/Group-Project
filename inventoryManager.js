@@ -57,6 +57,16 @@ class DOMManager {
         ItemService.getAllItems().then(items => this.render(items));
     }
 
+
+    static deleteItem(id) {
+        ItemService.deleteItem(id)
+        .then(() => {
+            return ItemService.getAllItems();
+        })
+        .then((houses) => this.render(this.items))
+    }
+
+
     static render(items) {
       this.items = items;
       $(`#app`).empty();
