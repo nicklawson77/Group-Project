@@ -18,7 +18,7 @@ class Discripton {
 }
 
 class ItemService {
-    static url = "http://crudcrud.com/api/d4cd6184ffd74f848e28ac8657748f1b/unicorns";
+    static url = "https://crudcrud.com/api/3c64c8349011494d883325f67a2c0310";
 
     static getAllItems() {
         return $.get(this.url);
@@ -65,7 +65,21 @@ class DOMManager {
               `<div id="${item._id}" class="card">
                 <div class ="card-header">
                 <h2>${item.name}</h2>
+                <button class ="btn btn-danger" onclick="DOMManager.deleteItem('${item.id})">Delete</button>
                 </div>
+                <div class ="card-body">
+                <div class="card">
+                <div class="row">
+                    <div class="col-sm">
+
+                    </div>
+                    <div class="col-sm">
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
                 `
           );
       }  
