@@ -71,10 +71,13 @@ class DOMManager {
                 <div class="card">
                 <div class="row">
                     <div class="col-sm">
-
+                    <input type="text" id="${item._id}-discriptions-qty" class="form-control" placeholder="Price">
                     </div>
                     <div class="col-sm">
-
+                    <input type="text" id="${item._id}-discriptions-price" class="form-control" placeholder="Quantity">
+                    </div>
+                    <div class="col-sm">
+                    <input type="text" id="${item._id}-discriptions-amountSold" class="form-control" placeholder="Amount Sold">
                     </div>
                   </div>
                 </div>
